@@ -1,0 +1,14 @@
+# 依赖与构建产物
+node_modules/
+dist/
+.tmp/
+
+# 本机 npm 缓存（.npmrc 里是绝对路径，仅本沙箱需要，见 README）
+.npmrc
+.npm-cache/
+.npm-logs/
+
+# 编辑器与系统
+.pw-browsers/
+*.local
+.DS_Store

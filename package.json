@@ -1,0 +1,36 @@
+{
+  "name": "wordlearn-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "English vocabulary learning app for mobile and desktop - offline first, spaced repetition driven",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node scripts/test-runner.mjs all",
+    "test:db": "node scripts/test-runner.mjs db",
+    "test:ui": "node scripts/test-runner.mjs ui",
+    "test:logic": "node scripts/test-runner.mjs logic"
+  },
+  "dependencies": {
+    "dexie": "^4.4.6",
+    "lucide-react": "^1.48.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "esbuild": "^0.28.2",
+    "fake-indexeddb": "^6.2.5",
+    "jsdom": "^30.1.1",
+    "typescript": "~5.9.0",
+    "vite": "^8.3.1"
+  }
+}

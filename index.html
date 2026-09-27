@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 不禁用缩放：WCAG 1.4.4 要求允许放大到 200% -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F7F5F0" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F1319" />
+    <meta name="description" content="词记 · 间隔复习驱动的英语单词学习工具，手机与电脑通用，离线可用" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <title>词记 · 英语单词学习</title>
+  </head>
+  <body>
+    <!--
+      首屏主题：在 React 起来之前先按系统偏好定一次深浅色，
+      否则晚上打开会先闪一下白屏（真正的主题随后由 IndexedDB 里的设置纠正）。
+    -->
+    <script>
+      try {
+        document.documentElement.dataset.theme = window.matchMedia(
+          '(prefers-color-scheme: dark)',
+        ).matches
+          ? 'dark'
+          : 'light'
+      } catch (e) {
+        /* 忽略：极老的浏览器不支持 matchMedia 时用默认浅色 */
+      }
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
