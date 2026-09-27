@@ -212,6 +212,41 @@ npm run test:ui       # 62 项：真实 React 应用端到端（jsdom + fake-ind
 
 ---
 
+## 视觉
+
+**方向：冷白 + 鲜亮蓝。** 令牌集中在 `src/styles.css` 顶部，改主题只需要改那一块。
+
+| | |
+|---|---|
+| 底色 | `#F4F6FB` 冷白（**不要用暖米白**：大面积铺开是"脏灰"，白卡片浮上去显旧） |
+| 主色 | `#2563EB` 鲜亮蓝，用于主按钮、进度、选中态 |
+| 卡片 | 无描边，靠 `--shadow-md` 浮起；区块间距(22px) > 卡片内边距(14~18px)，节奏才有对比 |
+| 字体 | **全站无衬线**。单词用 700 字重 + `-0.035em` 字距；音标走 `--font-latin`（先命中中文字体会缺 IPA 字形，显示成方框） |
+| 多彩图标 | 饱和色 + 10% 同色底（`.icon-badge--{tone}`）。低饱和"墨色系"会显得褪色，不是多彩 |
+| 圆角 | 只有 `--r-sm/md/lg/xl` 四档（12/14/20/26），不要临时写别的值 |
+
+**改完必须看图**，不要凭想象调 CSS：
+
+```bash
+# 首次：准备浏览器（沙箱里的 ~/.npm 与系统库都不全，见下）
+npm i -D playwright
+PLAYWRIGHT_BROWSERS_PATH=$PWD/.pw-browsers npx playwright install chromium
+
+# 逐页截图（开发服务器需已运行）
+PLAYWRIGHT_BROWSERS_PATH=$PWD/.pw-browsers \
+LD_LIBRARY_PATH=$PWD/.pw-browsers/deps/root/usr/lib/x86_64-linux-gnu \
+FONTCONFIG_FILE=$PWD/.pw-browsers/fonts.conf \
+node scripts/shots.mjs shots
+
+# 同一页面比多个方案：不改源码，直接注入候选样式表
+node scripts/theme-compare.mjs 现状 a:shots/variant-a.css b:shots/variant-b.css
+```
+
+> 这个环境里 Chromium 起不来是因为缺 `libnspr4 / libnss3 / libasound2`，且没有 sudo。不用 root 的解法：
+> `cd .pw-browsers/deps && apt-get download libnspr4 libnss3 libasound2t64 && for f in *.deb; do dpkg -x $f root; done`，
+> 再把 `root/usr/lib/x86_64-linux-gnu` 加进 `LD_LIBRARY_PATH`。中文字体同理（`apt-get download fonts-noto-cjk` +
+> 一个指向解包目录的 `FONTCONFIG_FILE`），否则截图里中文全是方框。
+
 ## 无障碍与交互
 
 - 触控目标 ≥44px；正文对比度 ≥4.5:1；`:focus-visible` 有可见焦点环。
@@ -239,7 +274,8 @@ npm run test:ui       # 62 项：真实 React 应用端到端（jsdom + fake-ind
 - **换设备需要手动备份**：没有云端账号，用「我的 → 数据管理 → 导出 / 导入 JSON」迁移。
 - **单词本列表是渲染层分批**（每批 30 条），数据层仍一次性读入当前词书的词 ——
   词书规模上到几万词时需要换成游标分页。
-- **像素级视觉未在真实浏览器中验证过**：开发环境没有可用浏览器，交互与结构由 jsdom 端到端测试保证。
+- **视觉只在 headless Chromium 里核对过**：`scripts/shots.mjs` 会逐页截图（`shots/`，已 gitignore），
+  但还没有在真机 / 真手机上人工过目。
 
 ---
 

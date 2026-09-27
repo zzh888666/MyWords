@@ -136,8 +136,11 @@ export default function WordDetail() {
           <Card className="card--pad detail-hero">
             <div className="detail-word">{word.word}</div>
             <div className="detail-sub">
+              {/* 词库里美音/英音常常是同一个值，两个都显示就是复读一遍 */}
               {word.phonetic?.us ? <span className="detail-phonetic">{word.phonetic.us}</span> : null}
-              {word.phonetic?.uk ? <span className="detail-phonetic dim">{word.phonetic.uk}</span> : null}
+              {word.phonetic?.uk && word.phonetic.uk !== word.phonetic.us ? (
+                <span className="detail-phonetic dim">英 {word.phonetic.uk}</span>
+              ) : null}
               {word.pos ? <span className="chip chip--indigo">{word.pos}</span> : null}
             </div>
             <p style={{ fontSize: 16, lineHeight: 1.75 }}>{word.translation}</p>

@@ -4,7 +4,7 @@
  * 页面只允许使用这里的组件与 styles.css 里已有的类，不新增样式文件，
  * 这样全站圆角、间距、配色、触控尺寸才能保持一致。
  */
-import { useEffect, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { useEffect, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react'
 import { ChevronLeft, X } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { BookColor } from '../types'
@@ -110,17 +110,20 @@ export function Card({
   className,
   pad,
   ink,
+  style,
 }: {
   children: ReactNode
   className?: string
   pad?: boolean
   ink?: boolean
+  style?: CSSProperties
 }) {
   return (
     <div
       className={['card', pad ? 'card--pad' : '', ink ? 'card--ink' : '', className ?? '']
         .filter(Boolean)
         .join(' ')}
+      style={style}
     >
       {children}
     </div>
@@ -184,8 +187,8 @@ export function ProgressBar({
 }: {
   /** 0~1 */
   value: number
-  tone?: 'primary' | 'gold' | 'ok'
-  size?: 'md' | 'lg'
+  tone?: 'primary' | 'gold' | 'ok' | 'violet'
+  size?: 'md' | 'lg' | 'thin'
   /** 无障碍标签，例如「今日学习进度」 */
   label: string
   onInk?: boolean
@@ -193,7 +196,9 @@ export function ProgressBar({
   const pct = Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0))
   return (
     <div
-      className={['progress', size === 'lg' ? 'progress--lg' : ''].filter(Boolean).join(' ')}
+      className={['progress', size === 'lg' ? 'progress--lg' : '', size === 'thin' ? 'progress--thin' : '']
+        .filter(Boolean)
+        .join(' ')}
       role="progressbar"
       aria-label={label}
       aria-valuemin={0}
@@ -205,6 +210,7 @@ export function ProgressBar({
           'progress__fill',
           tone === 'gold' ? 'progress__fill--gold' : '',
           tone === 'ok' ? 'progress__fill--ok' : '',
+          tone === 'violet' ? 'progress__fill--violet' : '',
           onInk ? 'progress__fill--on-ink' : '',
         ]
           .filter(Boolean)

@@ -458,7 +458,7 @@ await roundTrip({
   name: '首页 → 学习计划',
   fromHash: '#/home',
   fromProbe: '.home-head__hi',
-  entry: () => findByText('.btn', '学习计划'),
+  entry: () => findByText('.listrow__title', '学习计划'),
   targetHash: '#/plan',
   targetProbe: '.stepper',
 })
@@ -467,7 +467,7 @@ await roundTrip({
   name: '首页 → 学习成就',
   fromHash: '#/home',
   fromProbe: '.home-head__hi',
-  entry: () => findByText('.btn', '学习成就'),
+  entry: () => findByText('.listrow__title', '学习成就'),
   targetHash: '#/achievements',
   targetProbe: '.badge',
 })

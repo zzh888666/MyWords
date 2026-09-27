@@ -271,7 +271,7 @@ export default function Study() {
           </span>
           <span className="study-top__pct num">{pct}%</span>
         </div>
-        <ProgressBar value={queuePercent(queue)} label="今日学习进度" size="lg" />
+        <ProgressBar value={queuePercent(queue)} label="今日学习进度" size="thin" />
       </div>
 
       <div className="study-stage">
@@ -335,7 +335,7 @@ export default function Study() {
                   disabled={Boolean(activePick?.correct)}
                   onClick={() => onPickOption(id)}
                 >
-                  <span className="option__key serif" aria-hidden>
+                  <span className="option__key display" aria-hidden>
                     {LETTERS[i]}
                   </span>
                   <span className="option__text">{w?.translation ?? '—'}</span>
@@ -361,7 +361,7 @@ export default function Study() {
             </label>
             <input
               id="spell-input"
-              className="input serif"
+              className="input display"
               style={{ fontSize: 20, letterSpacing: '0.02em' }}
               value={spell}
               autoComplete="off"

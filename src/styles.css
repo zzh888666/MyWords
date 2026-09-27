@@ -94,60 +94,68 @@ ul, ol {
 
 :root {
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
-    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia,
-    'Times New Roman', 'Songti SC', serif;
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Noto Sans CJK SC', sans-serif;
+  /*
+   * 标题/单词/音标统一走无衬线。
+   * 原来的衬线方案（Iowan/Palatino/Georgia）在 macOS 上还行，
+   * 但在 Windows/Android 会落到 Times New Roman / 宋体 —— 那正是「土」的主要来源。
+   */
+  --font-display: var(--font-sans);
+  /* 纯拉丁内容（音标等）优先用拉丁字体：中文字体往往缺少 IPA 字形，
+     一旦先命中就会显示成方框 */
+  --font-latin: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial,
+    'Noto Sans', 'DejaVu Sans', sans-serif;
 
-  /* 米白纸感底 + 暖色分隔线 */
-  --bg: #f7f5f0;
-  --bg-blur: rgba(247, 245, 240, 0.82);
+  /* 冷白底：干净、不发黄 */
+  --bg: #f4f6fb;
+  --bg-blur: rgba(244, 246, 251, 0.86);
   --surface: #ffffff;
-  --surface-2: #f2efe8;
-  --surface-3: #eae6dc;
+  --surface-2: #f5f7fb;
+  --surface-3: #e9edf5;
 
-  /* 墨蓝 */
-  --ink: #14213d;
-  --primary: #1b3a6b;
-  --primary-hover: #16305a;
-  --primary-soft: #e9eef6;
+  --ink: #0f172a;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-soft: #eaf1ff;
   --on-primary: #ffffff;
 
-  --text: #1b2740;
-  --text-2: #5c6a85;
-  --text-3: #949eb2;
+  --text: #0f172a;
+  --text-2: #5b6b85;
+  --text-3: #93a0b4;
 
-  --line: #e7e2d8;
-  --line-strong: #d9d3c6;
+  --line: #eaeef6;
+  --line-strong: #dbe2ee;
 
-  --gold: #a67c3d;
-  --gold-soft: #f5eedf;
-  --ok: #2e7d5b;
-  --ok-soft: #e6f2ec;
-  --err: #b4453c;
-  --err-soft: #f8e9e7;
+  --gold: #b45309;
+  --gold-soft: #fff4e6;
+  --ok: #059669;
+  --ok-soft: #e6f6f0;
+  --err: #e11d48;
+  --err-soft: #ffe9ef;
 
-  /* 模块色：低饱和「墨色系」，保证多彩但不花 */
-  --tone-indigo: #1b3a6b;
-  --tone-indigo-soft: #e9eef6;
-  --tone-violet: #4b3a78;
-  --tone-violet-soft: #efebf7;
-  --tone-cyan: #1f5f6b;
-  --tone-cyan-soft: #e3f0f1;
-  --tone-emerald: #2e7d5b;
-  --tone-emerald-soft: #e6f2ec;
-  --tone-amber: #8a6127;
-  --tone-amber-soft: #f5eddd;
-  --tone-rose: #8e3b54;
-  --tone-rose-soft: #f7e9ed;
+  /* 模块色：鲜亮饱和，配 10% 底色才撑得起「多彩图标」 */
+  --tone-indigo: #2563eb;
+  --tone-indigo-soft: #e8f0fe;
+  --tone-violet: #7c3aed;
+  --tone-violet-soft: #f3ebff;
+  --tone-cyan: #0891b2;
+  --tone-cyan-soft: #e0f5fa;
+  --tone-emerald: #059669;
+  --tone-emerald-soft: #e6f6f0;
+  --tone-amber: #d97706;
+  --tone-amber-soft: #fef3e2;
+  --tone-rose: #e11d48;
+  --tone-rose-soft: #ffe9ef;
 
-  --shadow-sm: 0 1px 2px rgba(20, 33, 61, 0.05);
-  --shadow-md: 0 1px 2px rgba(20, 33, 61, 0.04), 0 10px 30px -18px rgba(20, 33, 61, 0.3);
-  --shadow-lift: 0 2px 6px rgba(20, 33, 61, 0.06), 0 18px 40px -24px rgba(20, 33, 61, 0.4);
+  /* 阴影分层：卡片靠浮起而不是靠描边 */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -18px rgba(15, 23, 42, 0.3);
+  --shadow-lift: 0 4px 12px rgba(15, 23, 42, 0.08), 0 24px 48px -26px rgba(15, 23, 42, 0.38);
 
-  --r-sm: 10px;
+  --r-sm: 12px;
   --r-md: 14px;
-  --r-lg: 18px;
-  --r-xl: 24px;
+  --r-lg: 20px;
+  --r-xl: 26px;
   --r-pill: 999px;
 
   --tabbar-h: 62px;
@@ -159,63 +167,54 @@ ul, ol {
 }
 
 [data-theme='dark'] {
-  --bg: #0f1319;
-  --bg-blur: rgba(15, 19, 25, 0.82);
-  --surface: #171d26;
-  --surface-2: #1e2531;
-  --surface-3: #262e3c;
+  --bg: #0b1220;
+  --bg-blur: rgba(11, 18, 32, 0.86);
+  --surface: #131b2c;
+  --surface-2: #1a2334;
+  --surface-3: #232d40;
 
-  --ink: #0a0f16;
-  --primary: #7fa6e0;
-  --primary-hover: #94b5e9;
-  --primary-soft: #1a2434;
-  --on-primary: #0b1220;
+  --ink: #060a12;
+  --primary: #60a5fa;
+  --primary-hover: #7db4fb;
+  --primary-soft: #16233a;
+  --on-primary: #08111f;
 
-  --text: #e9ecf2;
-  --text-2: #a6b0c0;
-  --text-3: #717c8e;
+  --text: #e8edf7;
+  --text-2: #a3b0c7;
+  --text-3: #71809b;
 
-  --line: #262d38;
-  --line-strong: #333b47;
+  --line: #232d40;
+  --line-strong: #2f3a4f;
 
-  --gold: #d5b071;
-  --gold-soft: #2a2419;
-  --ok: #6fc79c;
-  --ok-soft: #16261f;
-  --err: #e08c84;
-  --err-soft: #2a1a18;
+  --gold: #f0b357;
+  --gold-soft: #2a2113;
+  --ok: #4ade80;
+  --ok-soft: #10231a;
+  --err: #fb7185;
+  --err-soft: #2a1119;
 
-  --tone-indigo: #9db8e6;
-  --tone-indigo-soft: #1b2536;
-  --tone-violet: #b3a3e0;
-  --tone-violet-soft: #221f33;
-  --tone-cyan: #7fc2cd;
-  --tone-cyan-soft: #14262a;
-  --tone-emerald: #6fc79c;
-  --tone-emerald-soft: #14251d;
-  --tone-amber: #d9b273;
-  --tone-amber-soft: #272115;
-  --tone-rose: #dd9aae;
-  --tone-rose-soft: #2a1b21;
+  --tone-indigo: #7cb0ff;
+  --tone-indigo-soft: #16233a;
+  --tone-violet: #b79cff;
+  --tone-violet-soft: #221a38;
+  --tone-cyan: #5cc9e8;
+  --tone-cyan-soft: #10262e;
+  --tone-emerald: #4ade80;
+  --tone-emerald-soft: #10231a;
+  --tone-amber: #f0b357;
+  --tone-amber-soft: #2a2113;
+  --tone-rose: #fb7185;
+  --tone-rose-soft: #2a1119;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 30px -18px rgba(0, 0, 0, 0.8);
-  --shadow-lift: 0 2px 8px rgba(0, 0, 0, 0.4), 0 20px 44px -24px rgba(0, 0, 0, 0.9);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.4), 0 14px 30px -20px rgba(0, 0, 0, 0.9);
+  --shadow-lift: 0 4px 14px rgba(0, 0, 0, 0.5), 0 28px 56px -28px rgba(0, 0, 0, 1);
 }
 
 /* ────────────────────────────── 3. 排版 ────────────────────────────── */
 
-.serif {
-  font-family: var(--font-serif);
-}
-
-/* 小号大写字距标签，营造印刷品的感觉 */
-.eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: var(--text-3);
-  text-transform: uppercase;
+.display {
+  font-family: var(--font-display);
 }
 
 .muted {
@@ -264,7 +263,8 @@ ul, ol {
   padding: 20px 16px calc(var(--tabbar-h) + 28px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  /* 区块间距 > 卡片内边距，页面才有节奏；原来两者都是 14~18px，看着很平 */
+  gap: 22px;
 }
 
 /* 会话类页面（学习 / 复习）自己管布局，不留 Tab 间距 */
@@ -356,24 +356,26 @@ ul, ol {
 /* 卡片 */
 .card {
   background: var(--surface);
-  border: 1px solid var(--line);
+  /* 透明边框保留 1px 占位，去掉描边后布局不跳动 */
+  border: 1px solid transparent;
   border-radius: var(--r-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
 .card--pad {
   padding: 16px;
 }
 
+/* 重点卡：鲜亮蓝渐变（原来是深墨蓝，显得又重又旧） */
 .card--ink {
-  background: linear-gradient(150deg, #22437a 0%, var(--ink) 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   border-color: transparent;
   color: #fff;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 30px -14px rgba(37, 99, 235, 0.55);
 }
 
 [data-theme='dark'] .card--ink {
-  background: linear-gradient(150deg, #1d3763 0%, #101a2c 100%);
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
 }
 
 /* 图标底色方块：多彩但克制 */
@@ -383,7 +385,7 @@ ul, ol {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 11px;
+  border-radius: 12px;
   flex: none;
   background: var(--tone-indigo-soft);
   color: var(--tone-indigo);
@@ -392,7 +394,7 @@ ul, ol {
 .icon-badge--lg {
   width: 44px;
   height: 44px;
-  border-radius: 14px;
+  border-radius: 15px;
 }
 
 .icon-badge--indigo { background: var(--tone-indigo-soft); color: var(--tone-indigo); }
@@ -431,9 +433,9 @@ ul, ol {
 }
 
 .btn--primary {
-  background: var(--primary);
+  background: linear-gradient(180deg, #3b82f6, var(--primary));
   color: var(--on-primary);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 6px 16px -8px rgba(37, 99, 235, 0.75);
 }
 .btn--primary:hover:not(:disabled) {
   background: var(--primary-hover);
@@ -442,8 +444,8 @@ ul, ol {
 .btn--surface {
   background: var(--surface);
   color: var(--text);
-  border-color: var(--line);
-  box-shadow: var(--shadow-sm);
+  border-color: transparent;
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--line);
 }
 .btn--surface:hover:not(:disabled) {
   border-color: var(--line-strong);
@@ -514,14 +516,19 @@ ul, ol {
 .progress--lg {
   height: 10px;
 }
+/* 会话页顶部用它：细一点，0% 时也不至于像一条空槽 */
+.progress--thin {
+  height: 6px;
+}
 .progress__fill {
   height: 100%;
   border-radius: inherit;
-  background: var(--primary);
+  background: linear-gradient(90deg, #3b82f6, var(--primary));
   transition: width 420ms var(--ease);
 }
 .progress__fill--gold { background: var(--gold); }
 .progress__fill--ok { background: var(--ok); }
+.progress__fill--violet { background: linear-gradient(90deg, #a78bfa, var(--tone-violet)); }
 .progress__fill--on-ink { background: rgba(255, 255, 255, 0.92); }
 .card--ink .progress { background: rgba(255, 255, 255, 0.18); }
 
@@ -547,6 +554,7 @@ ul, ol {
   align-items: center;
   justify-content: center;
   gap: 6px;
+  white-space: nowrap;
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 .segmented__item.is-active {
@@ -580,7 +588,7 @@ ul, ol {
 .section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .section__head {
@@ -944,8 +952,8 @@ ul, ol {
 .hero {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 18px;
+  gap: 12px;
+  padding: 16px 18px;
 }
 
 .hero__top {
@@ -991,7 +999,7 @@ ul, ol {
 }
 
 .hero__pct {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   color: #fff;
   font-variant-numeric: tabular-nums;
@@ -1036,7 +1044,7 @@ ul, ol {
 }
 
 .task-card__count {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
@@ -1053,6 +1061,14 @@ ul, ol {
 .task-card__foot {
   font-size: 12px;
   color: var(--text-3);
+}
+
+/* 学习=蓝、复习=紫：两张任务卡一眼能分辨，不再是一模一样的白盒子 */
+.task-card--learn .task-card__count {
+  color: var(--primary);
+}
+.task-card--review .task-card__count {
+  color: var(--tone-violet);
 }
 
 .task-card__done {
@@ -1182,9 +1198,10 @@ ul, ol {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 18px;
-  padding: 8px 0;
+  /* 原来是 justify-content:center，题目与选项之间被撑出一大段空白，视线会断 */
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 6px 0 0;
 }
 
 /* 题面卡片 */
@@ -1194,31 +1211,28 @@ ul, ol {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 30px 20px;
+  padding: 26px 20px;
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: var(--r-xl);
   box-shadow: var(--shadow-md);
   text-align: center;
 }
 
 .wordcard__word {
-  font-family: var(--font-serif);
-  font-size: 40px;
-  line-height: 1.15;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-  word-break: break-word;
-}
-[data-theme='dark'] .wordcard__word {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.035em;
   color: var(--text);
+  word-break: break-word;
 }
 
 .wordcard__phonetic {
   font-size: 15px;
   color: var(--text-3);
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
 }
 
 .wordcard__hint {
@@ -1261,7 +1275,7 @@ ul, ol {
 .options {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .option {
@@ -1269,13 +1283,13 @@ ul, ol {
   align-items: center;
   gap: 12px;
   width: 100%;
-  min-height: 56px;
-  padding: 12px 14px;
+  min-height: 52px;
+  padding: 10px 14px;
   text-align: left;
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: var(--r-md);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--line);
   transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease),
     transform var(--dur) var(--ease);
 }
@@ -1288,17 +1302,17 @@ ul, ol {
 
 .option__key {
   flex: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 9px;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--surface-2);
-  color: var(--text-2);
+  background: var(--primary-soft);
+  color: var(--primary);
   font-size: 13px;
   font-weight: 700;
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
 }
 
 .option__text {
@@ -1350,6 +1364,8 @@ ul, ol {
   align-items: center;
   gap: 12px;
   padding-top: 4px;
+  /* 吸到容器底部：中间留白交给 stage，按钮位置稳定 */
+  margin-top: auto;
 }
 
 .screen-foot--split > * {
@@ -1358,14 +1374,6 @@ ul, ol {
 
 .screen-foot--center {
   justify-content: center;
-}
-
-.screen-foot--sticky {
-  position: sticky;
-  bottom: 0;
-  padding-bottom: env(safe-area-inset-bottom);
-  background: linear-gradient(to top, var(--bg) 68%, transparent);
-  padding-top: 12px;
 }
 
 /* 翻转卡 */
@@ -1421,20 +1429,17 @@ ul, ol {
 }
 
 .flipcard__word {
-  font-family: var(--font-serif);
-  font-size: 38px;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-  word-break: break-word;
-}
-[data-theme='dark'] .flipcard__word {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
   color: var(--text);
+  word-break: break-word;
 }
 
 .flipcard__phonetic {
-  font-family: var(--font-serif);
+  font-family: var(--font-latin);
   font-size: 15px;
   color: var(--text-3);
 }
@@ -1471,14 +1476,11 @@ ul, ol {
 }
 
 .detail-word {
-  font-family: var(--font-serif);
-  font-size: 40px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-[data-theme='dark'] .detail-word {
+  letter-spacing: -0.035em;
   color: var(--text);
 }
 
@@ -1490,9 +1492,10 @@ ul, ol {
 }
 
 .detail-phonetic {
-  font-family: var(--font-serif);
+  font-family: var(--font-latin);
   font-size: 15px;
   color: var(--text-2);
+  letter-spacing: 0.01em;
 }
 
 .block {
@@ -1547,7 +1550,7 @@ ul, ol {
 }
 
 .example__en {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 15px;
   line-height: 1.7;
 }
@@ -1577,7 +1580,7 @@ ul, ol {
 }
 
 .form-item__v {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 15px;
 }
 
@@ -1633,7 +1636,7 @@ ul, ol {
 }
 
 .wordrow__word {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 17px;
   font-weight: 600;
   display: flex;
@@ -1717,13 +1720,16 @@ ul, ol {
   gap: 3px;
   align-items: flex-end;
   height: 100%;
+  /* 基线：没有数据的日子也应该看得出「这里是 0」，而不是悬空的虚线 */
+  border-bottom: 1px solid var(--line);
 }
 
 .trend__bar {
   width: 9px;
-  border-radius: 4px 4px 2px 2px;
+  border-radius: 4px 4px 0 0;
   background: var(--primary);
-  min-height: 2px;
+  /* 0 值就是 0：由脚本决定最小可见高度，CSS 不再兜底画一个 2px 的残影 */
+  min-height: 0;
   transition: height 420ms var(--ease);
 }
 
@@ -1782,7 +1788,11 @@ ul, ol {
 .cal-cell.is-l2 { background: color-mix(in srgb, var(--primary) 52%, var(--surface-2)); color: #fff; }
 .cal-cell.is-l3 { background: color-mix(in srgb, var(--primary) 78%, var(--surface-2)); color: #fff; }
 .cal-cell.is-l4 { background: var(--primary); color: var(--on-primary); }
-.cal-cell.is-today { box-shadow: 0 0 0 2px var(--gold); }
+.cal-cell.is-today {
+  box-shadow: inset 0 0 0 2px var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
 
 /* ────────────────────────────── 11. 成就 / 我的 / 词书 ────────────────────────────── */
 
@@ -1943,7 +1953,7 @@ ul, ol {
 }
 
 .boot__brand {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 30px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -2050,7 +2060,7 @@ ul, ol {
   }
 
   .rail__brand-name {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: 19px;
     font-weight: 600;
     letter-spacing: 0.01em;

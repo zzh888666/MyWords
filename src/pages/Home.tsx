@@ -10,7 +10,17 @@
  * docs/LOGIC_FLOW.md §3.1 / §3.2 区分了四种「没有任务」的原因，各给各的提示。
  */
 import { useGo } from '../lib/nav'
-import { BookMarked, CalendarDays, Check, ChevronRight, Flame, GraduationCap, RotateCcw } from 'lucide-react'
+import {
+  BookMarked,
+  CalendarDays,
+  Check,
+  ChevronRight,
+  Flame,
+  GraduationCap,
+  RotateCcw,
+  Target,
+  Trophy,
+} from 'lucide-react'
 import { ROUTES } from '../routes'
 import { useApp } from '../store/app'
 import { useQuery } from '../lib/hooks'
@@ -26,7 +36,7 @@ import {
   isQueueDone,
   queuePercent,
 } from '../lib/derive'
-import { Button, Card, IconBadge, ProgressBar, Section } from '../components/ui'
+import { Card, IconBadge, ListRow, ProgressBar, Section } from '../components/ui'
 
 export default function Home() {
   const today = useApp((s) => s.today)
@@ -156,7 +166,6 @@ export default function Home() {
             <ProgressBar
               value={book?.percent ?? 0}
               onInk
-              size="lg"
               label={`《${book?.book.name ?? ''}》学习进度`}
             />
           </div>
@@ -166,7 +175,7 @@ export default function Home() {
       {/* 今日任务 */}
       <Section title="今日任务" icon={CalendarDays} tone="cyan">
         <div className="task-grid">
-          <button type="button" className="task-card" onClick={onLearn}>
+          <button type="button" className="task-card task-card--learn" onClick={onLearn}>
             <div className="task-card__top">
               <IconBadge icon={GraduationCap} tone="indigo" />
               <span className="task-card__name">学习</span>
@@ -192,7 +201,7 @@ export default function Home() {
             </div>
           </button>
 
-          <button type="button" className="task-card" onClick={onReview}>
+          <button type="button" className="task-card task-card--review" onClick={onReview}>
             <div className="task-card__top">
               <IconBadge icon={RotateCcw} tone="violet" />
               <span className="task-card__name">复习</span>
@@ -208,7 +217,7 @@ export default function Home() {
                 <span className="task-card__unit">词待复习</span>
               </div>
             )}
-            <ProgressBar value={queuePercent(review)} label="今日复习进度" size="md" />
+            <ProgressBar value={queuePercent(review)} label="今日复习进度" tone="violet" />
             <div className="task-card__foot num">
               {review ? `${review.done} / ${review.target}` : '—'}
             </div>
@@ -260,14 +269,27 @@ export default function Home() {
         </Card>
       </Section>
 
-      <div style={{ display: 'flex', gap: 10 }}>
-        <Button variant="ghost" block onClick={() => go(ROUTES.achievements)}>
-          学习成就
-        </Button>
-        <Button variant="ghost" block onClick={() => go(ROUTES.plan)}>
-          学习计划
-        </Button>
-      </div>
+      {/* 次级入口：做成规整的入口行，比两个悬空的按钮稳 */}
+      <Card className="card--pad" style={{ paddingTop: 2, paddingBottom: 2 }}>
+        <div className="list">
+          <ListRow
+            icon={Trophy}
+            tone="amber"
+            title="学习成就"
+            sub="看看已经拿到哪些徽章"
+            trail={<ChevronRight size={16} aria-hidden />}
+            onClick={() => go(ROUTES.achievements)}
+          />
+          <ListRow
+            icon={Target}
+            tone="cyan"
+            title="学习计划"
+            sub={`每日 ${settings.dailyNew} 词 · 复习上限 ${settings.dailyReviewLimit}`}
+            trail={<ChevronRight size={16} aria-hidden />}
+            onClick={() => go(ROUTES.plan)}
+          />
+        </div>
+      </Card>
     </div>
   )
 }

@@ -60,7 +60,7 @@ export default function WordBody({ word }: { word: Word }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {examples.map((ex, i) => (
               <div className="example" key={i}>
-                <div className="example__en serif">{ex.en}</div>
+                <div className="example__en display">{ex.en}</div>
                 {ex.zh ? <div className="example__zh">{ex.zh}</div> : null}
               </div>
             ))}
@@ -108,7 +108,7 @@ export default function WordBody({ word }: { word: Word }) {
       {word.family ? (
         <Block icon={<Layers size={15} aria-hidden />} title="同族词">
           <div style={{ marginBottom: 8 }}>
-            <span className="serif" style={{ fontSize: 16, fontWeight: 600 }}>
+            <span className="display" style={{ fontSize: 16, fontWeight: 600 }}>
               {word.family.key}
             </span>
             {word.family.pos ? <span className="dim" style={{ marginLeft: 8, fontSize: 13 }}>{word.family.pos}</span> : null}

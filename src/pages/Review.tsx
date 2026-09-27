@@ -181,7 +181,7 @@ export default function Review() {
           </span>
           <span className="study-top__pct num">{pct}%</span>
         </div>
-        <ProgressBar value={queuePercent(queue)} label="今日复习进度" size="lg" />
+        <ProgressBar value={queuePercent(queue)} label="今日复习进度" size="thin" />
       </div>
 
       <div className="study-stage">
@@ -237,7 +237,7 @@ export default function Review() {
                 </div>
                 {current.examples?.[0] ? (
                   <div className="example">
-                    <div className="example__en serif">{current.examples[0].en}</div>
+                    <div className="example__en display">{current.examples[0].en}</div>
                     {current.examples[0].zh ? (
                       <div className="example__zh">{current.examples[0].zh}</div>
                     ) : null}
